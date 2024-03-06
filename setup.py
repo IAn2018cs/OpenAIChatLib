@@ -27,7 +27,7 @@ setup(
     description="OpenAI Chat API",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/IAn2018cs/sd-webui-facefusion",
+    url="https://github.com/IAn2018cs/OpenAIChatLib",
     author="IAn2018",
     author_email="ian2018cs@gmail.com",
     classifiers=[
