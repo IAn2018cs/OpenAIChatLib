@@ -1,0 +1,6 @@
+.assets
+.idea
+.vscode
+build
+dist
+*.egg-info
