@@ -22,6 +22,15 @@ ENGINES_PREVIEW = [
     "gpt-4-1106-vision-preview",
 ]
 
+ENGINES_CLAUDE = [
+    "claude-3-opus-20240229",
+    "claude-3-sonnet-20240229",
+    "claude-3-haiku-20240307",
+    "claude-2.1",
+    "claude-2.0",
+    "claude-instant-1.2",
+]
+
 ENGINES = [
     "gpt-3.5-turbo-0125",
     "gpt-3.5-turbo",
@@ -37,6 +46,7 @@ ENGINES = [
     "gpt-4-32k-0613",
 
     *ENGINES_PREVIEW,
+    *ENGINES_CLAUDE,
 ]
 
 
@@ -188,7 +198,7 @@ class Chatbot:
         """
         Get max tokens
         """
-        if self.engine in ENGINES_PREVIEW:
+        if self.engine in ENGINES_PREVIEW or self.engine in ENGINES_CLAUDE:
             return 4096
         return self.max_tokens - self.get_token_count(convo_id)
 
