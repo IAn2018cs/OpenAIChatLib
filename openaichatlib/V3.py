@@ -135,8 +135,8 @@ class Chatbot:
             ],
         }
 
-        if self.get_token_count("default") > self.max_tokens:
-            raise t.ActionRefuseError("System prompt is too long")
+        # if self.get_token_count("default") > self.max_tokens:
+        #     raise t.ActionRefuseError("System prompt is too long")
 
     def add_to_conversation(
         self,
@@ -153,15 +153,16 @@ class Chatbot:
         """
         Truncate the conversation
         """
-        while True:
-            if (
-                self.get_token_count(convo_id) > self.truncate_limit
-                and len(self.conversation[convo_id]) > 1
-            ):
-                # Don't remove the first message
-                self.conversation[convo_id].pop(1)
-            else:
-                break
+        pass
+        # while True:
+        #     if (
+        #         self.get_token_count(convo_id) > self.truncate_limit
+        #         and len(self.conversation[convo_id]) > 1
+        #     ):
+        #         # Don't remove the first message
+        #         self.conversation[convo_id].pop(1)
+        #     else:
+        #         break
 
     # https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
     def get_token_count(self, convo_id: str = "default") -> int:
