@@ -63,6 +63,7 @@ class Chatbot:
         proxy: str = None,
         timeout: float = None,
         max_tokens: int = None,
+        customize_header: dict = None,
         temperature: float = 0.5,
         top_p: float = 1.0,
         presence_penalty: float = 0.0,
@@ -77,6 +78,7 @@ class Chatbot:
         self.api_url: str = api_url
         self.engine: str = engine
         self.api_key: str = api_key
+        self.customize_header = customize_header
         self.system_prompt: str = system_prompt
         self.max_tokens: int = max_tokens or (
             31000
@@ -263,6 +265,8 @@ class Chatbot:
             payload["response_format"] = {
                 "type": "json_object"
             }
+        if self.customize_header:
+            headers.update(self.customize_header)
         response = self.session.post(
             url,
             headers=headers,
@@ -351,11 +355,14 @@ class Chatbot:
             payload["response_format"] = {
                 "type": "json_object"
             }
+        headers = {"Authorization": f"Bearer {kwargs.get('api_key', self.api_key)}"}
+        if self.customize_header:
+            headers.update(self.customize_header)
         # Get response
         async with self.aclient.stream(
             "post",
             self.api_url,
-            headers={"Authorization": f"Bearer {kwargs.get('api_key', self.api_key)}"},
+            headers=headers,
             json=payload,
             timeout=kwargs.get("timeout", self.timeout),
         ) as response:
