@@ -13,6 +13,44 @@ import tiktoken
 from . import typings as t
 from .utils import get_filtered_keys_from_object
 
+ENGINES_CLAUDE_MAX = [
+    "claude-3-opus-20240229",
+    "claude-3-sonnet-20240229",
+    "claude-3-haiku-20240307",
+    "claude-2.1",
+]
+
+ENGINES_CLAUDE_LOW = [
+    "claude-2.0",
+    "claude-instant-1.2",
+]
+
+ENGINES_CLAUDE = [
+    *ENGINES_CLAUDE_MAX,
+
+    *ENGINES_CLAUDE_LOW,
+]
+
+ENGINES_GPT35_TURBO = [
+    "gpt-3.5-turbo-0125",
+    "gpt-3.5-turbo",
+    "gpt-3.5-turbo-1106",
+]
+
+ENGINES_GPT35_16K = [
+    "gpt-3.5-turbo-16k",
+    "gpt-3.5-turbo-16k-0613",
+]
+
+ENGINES_GPT4 = [
+    "gpt-4",
+    "gpt-4-0613",
+]
+
+ENGINES_GPT4_32K = [
+    "gpt-4-32k",
+    "gpt-4-32k-0613",
+]
 
 ENGINES_PREVIEW = [
     "gpt-4-0125-preview",
@@ -22,28 +60,15 @@ ENGINES_PREVIEW = [
     "gpt-4-1106-vision-preview",
 ]
 
-ENGINES_CLAUDE = [
-    "claude-3-opus-20240229",
-    "claude-3-sonnet-20240229",
-    "claude-3-haiku-20240307",
-    "claude-2.1",
-    "claude-2.0",
-    "claude-instant-1.2",
-]
-
 ENGINES = [
-    "gpt-3.5-turbo-0125",
-    "gpt-3.5-turbo",
-    "gpt-3.5-turbo-1106",
     "gpt-3.5-turbo-instruct",
-    "gpt-3.5-turbo-16k",
     "gpt-3.5-turbo-0613",
-    "gpt-3.5-turbo-16k-0613",
 
-    "gpt-4",
-    "gpt-4-0613",
-    "gpt-4-32k",
-    "gpt-4-32k-0613",
+    *ENGINES_GPT35_TURBO,
+    *ENGINES_GPT35_16K,
+
+    *ENGINES_GPT4,
+    *ENGINES_GPT4_32K,
 
     *ENGINES_PREVIEW,
     *ENGINES_CLAUDE,
@@ -81,22 +106,34 @@ class Chatbot:
         self.customize_header = customize_header
         self.system_prompt: str = system_prompt
         self.max_tokens: int = max_tokens or (
-            31000
-            if "gpt-4-32k" in engine
-            else 7000
-            if "gpt-4" in engine
-            else 15000
-            if "gpt-3.5-turbo-16k" in engine
-            else 4000
+            16_000
+            if engine in ENGINES_GPT35_TURBO
+            else 120_000
+            if engine in ENGINES_PREVIEW
+            else 32_000
+            if engine in ENGINES_GPT4_32K
+            else 8_000
+            if engine in ENGINES_GPT4
+            else 200_000
+            if engine in ENGINES_CLAUDE_MAX
+            else 100_000
+            if engine in ENGINES_CLAUDE_LOW
+            else 4_000
         )
         self.truncate_limit: int = truncate_limit or (
-            30500
-            if "gpt-4-32k" in engine
-            else 6500
-            if "gpt-4" in engine
-            else 14500
-            if "gpt-3.5-turbo-16k" in engine
-            else 3500
+            15_500
+            if engine in ENGINES_GPT35_TURBO
+            else 119_500
+            if engine in ENGINES_PREVIEW
+            else 31_500
+            if engine in ENGINES_GPT4_32K
+            else 7_500
+            if engine in ENGINES_GPT4
+            else 199_500
+            if engine in ENGINES_CLAUDE_MAX
+            else 99_500
+            if engine in ENGINES_CLAUDE_LOW
+            else 3_500
         )
         self.temperature: float = temperature
         self.top_p: float = top_p
@@ -155,16 +192,17 @@ class Chatbot:
         """
         Truncate the conversation
         """
-        pass
-        # while True:
-        #     if (
-        #         self.get_token_count(convo_id) > self.truncate_limit
-        #         and len(self.conversation[convo_id]) > 1
-        #     ):
-        #         # Don't remove the first message
-        #         self.conversation[convo_id].pop(1)
-        #     else:
-        #         break
+        if self.engine in ENGINES_CLAUDE:
+            return
+        while True:
+            if (
+                self.get_token_count(convo_id) > self.truncate_limit
+                and len(self.conversation[convo_id]) > 1
+            ):
+                # Don't remove the first message
+                self.conversation[convo_id].pop(1)
+            else:
+                break
 
     # https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
     def get_token_count(self, convo_id: str = "default") -> int:
@@ -201,7 +239,7 @@ class Chatbot:
         """
         Get max tokens
         """
-        if self.engine in ENGINES_PREVIEW or self.engine in ENGINES_CLAUDE:
+        if self.engine in ENGINES_GPT35_TURBO or self.engine in ENGINES_PREVIEW or self.engine in ENGINES_CLAUDE:
             return 4096
         return self.max_tokens - self.get_token_count(convo_id)
 
