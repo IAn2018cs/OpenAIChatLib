@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 from typing import AsyncGenerator
+from typing import Optional
 
 import httpx
 import requests
@@ -96,6 +97,7 @@ class Chatbot:
         reply_count: int = 1,
         truncate_limit: int = None,
         system_prompt: str = "You are ChatGPT, a large language model trained by OpenAI. Respond conversationally",
+        count_tokens: bool = True,
     ) -> None:
         """
         Initialize Chatbot with API key (from https://platform.openai.com/account/api-keys)
@@ -105,6 +107,7 @@ class Chatbot:
         self.api_key: str = api_key
         self.customize_header = customize_header
         self.system_prompt: str = system_prompt
+        self.count_tokens = count_tokens
         self.max_tokens: int = max_tokens or (
             16_000
             if engine in ENGINES_GPT35_TURBO
@@ -192,6 +195,8 @@ class Chatbot:
         """
         Truncate the conversation
         """
+        if not self.count_tokens:
+            return
         if self.engine in ENGINES_CLAUDE:
             return
         while True:
@@ -209,6 +214,8 @@ class Chatbot:
         """
         Get token count
         """
+        if not self.count_tokens:
+            return 0
         if self.engine not in ENGINES:
             raise NotImplementedError(
                 f"Engine {self.engine} is not supported. Select from {ENGINES}",
@@ -235,10 +242,12 @@ class Chatbot:
         num_tokens += 5  # every reply is primed with <im_start>assistant
         return num_tokens
 
-    def get_max_tokens(self, convo_id: str) -> int:
+    def get_max_tokens(self, convo_id: str) -> Optional[int]:
         """
         Get max tokens
         """
+        if not self.count_tokens:
+            return None
         if self.engine in ENGINES_GPT35_TURBO or self.engine in ENGINES_PREVIEW or self.engine in ENGINES_CLAUDE:
             return 4096
         return self.max_tokens - self.get_token_count(convo_id)
@@ -294,11 +303,10 @@ class Chatbot:
             ),
             "n": kwargs.get("n", self.reply_count),
             "user": role,
-            "max_tokens": min(
-                self.get_max_tokens(convo_id=convo_id),
-                kwargs.get("max_tokens", self.max_tokens),
-            ),
         }
+        max_tokens = kwargs.get("max_tokens", None) or self.get_max_tokens(convo_id=convo_id)
+        if max_tokens:
+            payload["max_tokens"] = max_tokens
         if json_format:
             payload["response_format"] = {
                 "type": "json_object"
@@ -384,11 +392,10 @@ class Chatbot:
             ),
             "n": kwargs.get("n", self.reply_count),
             "user": role,
-            "max_tokens": min(
-                self.get_max_tokens(convo_id=convo_id),
-                kwargs.get("max_tokens", self.max_tokens),
-            ),
         }
+        max_tokens = kwargs.get("max_tokens", None) or self.get_max_tokens(convo_id=convo_id)
+        if max_tokens:
+            payload["max_tokens"] = max_tokens
         if json_format:
             payload["response_format"] = {
                 "type": "json_object"
