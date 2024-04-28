@@ -92,8 +92,6 @@ class Chatbot:
             customize_header: dict = None,
             temperature: float = 0.5,
             top_p: float = 1.0,
-            presence_penalty: float = 0.0,
-            frequency_penalty: float = 0.0,
             reply_count: int = 1,
             truncate_limit: int = None,
             system_prompt: str = "You are ChatGPT, a large language model trained by OpenAI. Respond conversationally",
@@ -140,8 +138,6 @@ class Chatbot:
         )
         self.temperature: float = temperature
         self.top_p: float = top_p
-        self.presence_penalty: float = presence_penalty
-        self.frequency_penalty: float = frequency_penalty
         self.reply_count: int = reply_count
         self.timeout: float = timeout
         self.proxy = proxy
@@ -293,16 +289,7 @@ class Chatbot:
             # kwargs
             "temperature": kwargs.get("temperature", self.temperature),
             "top_p": kwargs.get("top_p", self.top_p),
-            "presence_penalty": kwargs.get(
-                "presence_penalty",
-                self.presence_penalty,
-            ),
-            "frequency_penalty": kwargs.get(
-                "frequency_penalty",
-                self.frequency_penalty,
-            ),
             "n": kwargs.get("n", self.reply_count),
-            "user": role,
         }
         max_tokens = kwargs.get("max_tokens", None) or self.get_max_tokens(convo_id=convo_id)
         if max_tokens:
@@ -311,6 +298,15 @@ class Chatbot:
             payload["response_format"] = {
                 "type": "json_object"
             }
+        presence_penalty = kwargs.get("presence_penalty", None)
+        if presence_penalty:
+            payload["presence_penalty"] = presence_penalty
+        frequency_penalty = kwargs.get("frequency_penalty", None)
+        if frequency_penalty:
+            payload["frequency_penalty"] = frequency_penalty
+        user = kwargs.get("user", None)
+        if user:
+            payload["user"] = user
         if self.customize_header:
             headers.update(self.customize_header)
         response = self.session.post(
@@ -382,16 +378,7 @@ class Chatbot:
             # kwargs
             "temperature": kwargs.get("temperature", self.temperature),
             "top_p": kwargs.get("top_p", self.top_p),
-            "presence_penalty": kwargs.get(
-                "presence_penalty",
-                self.presence_penalty,
-            ),
-            "frequency_penalty": kwargs.get(
-                "frequency_penalty",
-                self.frequency_penalty,
-            ),
             "n": kwargs.get("n", self.reply_count),
-            "user": role,
         }
         max_tokens = kwargs.get("max_tokens", None) or self.get_max_tokens(convo_id=convo_id)
         if max_tokens:
@@ -400,6 +387,15 @@ class Chatbot:
             payload["response_format"] = {
                 "type": "json_object"
             }
+        presence_penalty = kwargs.get("presence_penalty", None)
+        if presence_penalty:
+            payload["presence_penalty"] = presence_penalty
+        frequency_penalty = kwargs.get("frequency_penalty", None)
+        if frequency_penalty:
+            payload["frequency_penalty"] = frequency_penalty
+        user = kwargs.get("user", None)
+        if user:
+            payload["user"] = user
         headers = {"Authorization": f"Bearer {kwargs.get('api_key', self.api_key)}"}
         if self.customize_header:
             headers.update(self.customize_header)

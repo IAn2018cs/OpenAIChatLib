@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e9c0326-9f2b-4f40-8e1c-9c4dae9e7a1d" name="Changes" comment="make count tokens optional">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="6e9c0326-9f2b-4f40-8e1c-9c4dae9e7a1d" name="Changes" comment="remove v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openaichatlib/V1.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/openaichatlib/V3.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/V3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openaichatlib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openaichatlib/typings.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/typings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openaichatlib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openaichatlib/version.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/version.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712886967710</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="remove v1">
+      <option name="closed" value="true" />
+      <created>1714265931924</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714265931924</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -136,6 +138,7 @@
     <MESSAGE value="add claude models" />
     <MESSAGE value="remove truncate conversation" />
     <MESSAGE value="make count tokens optional" />
-    <option name="LAST_COMMIT_MESSAGE" value="make count tokens optional" />
+    <MESSAGE value="remove v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove v1" />
   </component>
 </project>
