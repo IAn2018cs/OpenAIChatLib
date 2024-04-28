@@ -12,18 +12,14 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / "README.md").read_text(encoding="utf-8")
 
 install_requires = [
-    "prompt-toolkit",
     "httpx[socks]",
     "requests[socks]",
-    "OpenAIAuth>=3.0.0",
-    "rich",
     "tiktoken>=0.3.0",
-    "openai",
 ]
 
 setup(
     name="openaichatlib",
-    version="1.0.5",
+    version="1.0.6",
     description="OpenAI Chat API",
     long_description=long_description,
     long_description_content_type="text/markdown",

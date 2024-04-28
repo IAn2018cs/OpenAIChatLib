@@ -18,8 +18,8 @@ def verify() -> None:
         )
         raise error
     if (
-        int(__import__("platform").python_version_tuple()[1]) < 10
-        and int(__import__("platform").python_version_tuple()[0]) == 3
+            int(__import__("platform").python_version_tuple()[1]) < 10
+            and int(__import__("platform").python_version_tuple()[0]) == 3
     ):
         __import__("warnings").warn(
             UserWarning(

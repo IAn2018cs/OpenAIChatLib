@@ -1,35 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e9c0326-9f2b-4f40-8e1c-9c4dae9e7a1d" name="Changes" comment="" />
+    <list default="true" id="6e9c0326-9f2b-4f40-8e1c-9c4dae9e7a1d" name="Changes" comment="make count tokens optional">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openaichatlib/V1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openaichatlib/V3.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/V3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openaichatlib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openaichatlib/typings.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/typings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openaichatlib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openaichatlib/version.py" beforeDir="false" afterPath="$PROJECT_DIR$/openaichatlib/version.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;IAn2018cs&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:IAn2018cs/OpenAIChatLib.git&quot;,
+    &quot;accountId&quot;: &quot;652e924f-5fc4-4221-999a-f007cb1e780d&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2dIt30xmFd4H6MOUohxS36tT1cy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/chenshuai/PycharmProjects/OpenAIChatLib/openaichatlib&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/openaichatlib" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13135.95" />
+        <option value="bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
@@ -42,6 +85,57 @@
       <option name="presentableId" value="Default" />
       <updated>1709707216454</updated>
     </task>
+    <task id="LOCAL-00001" summary="update setup">
+      <option name="closed" value="true" />
+      <created>1709712010238</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1709712010238</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add claude models">
+      <option name="closed" value="true" />
+      <created>1711681433939</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711681433939</updated>
+    </task>
+    <task id="LOCAL-00003" summary="remove truncate conversation">
+      <option name="closed" value="true" />
+      <created>1711681912737</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711681912737</updated>
+    </task>
+    <task id="LOCAL-00004" summary="make count tokens optional">
+      <option name="closed" value="true" />
+      <created>1712886967710</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712886967710</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update setup" />
+    <MESSAGE value="add claude models" />
+    <MESSAGE value="remove truncate conversation" />
+    <MESSAGE value="make count tokens optional" />
+    <option name="LAST_COMMIT_MESSAGE" value="make count tokens optional" />
   </component>
 </project>

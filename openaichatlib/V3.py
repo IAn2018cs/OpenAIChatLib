@@ -82,22 +82,22 @@ class Chatbot:
     """
 
     def __init__(
-        self,
-        api_key: str,
-        api_url: str = os.environ.get("API_URL") or "https://api.openai.com/v1/chat/completions",
-        engine: str = os.environ.get("GPT_ENGINE") or "gpt-3.5-turbo",
-        proxy: str = None,
-        timeout: float = None,
-        max_tokens: int = None,
-        customize_header: dict = None,
-        temperature: float = 0.5,
-        top_p: float = 1.0,
-        presence_penalty: float = 0.0,
-        frequency_penalty: float = 0.0,
-        reply_count: int = 1,
-        truncate_limit: int = None,
-        system_prompt: str = "You are ChatGPT, a large language model trained by OpenAI. Respond conversationally",
-        count_tokens: bool = True,
+            self,
+            api_key: str,
+            api_url: str = os.environ.get("API_URL") or "https://api.openai.com/v1/chat/completions",
+            engine: str = os.environ.get("GPT_ENGINE") or "gpt-3.5-turbo",
+            proxy: str = None,
+            timeout: float = None,
+            max_tokens: int = None,
+            customize_header: dict = None,
+            temperature: float = 0.5,
+            top_p: float = 1.0,
+            presence_penalty: float = 0.0,
+            frequency_penalty: float = 0.0,
+            reply_count: int = 1,
+            truncate_limit: int = None,
+            system_prompt: str = "You are ChatGPT, a large language model trained by OpenAI. Respond conversationally",
+            count_tokens: bool = True,
     ) -> None:
         """
         Initialize Chatbot with API key (from https://platform.openai.com/account/api-keys)
@@ -153,7 +153,7 @@ class Chatbot:
             },
         )
         if proxy := (
-            proxy or os.environ.get("all_proxy") or os.environ.get("ALL_PROXY") or None
+                proxy or os.environ.get("all_proxy") or os.environ.get("ALL_PROXY") or None
         ):
             if "socks5h" not in proxy:
                 self.aclient = httpx.AsyncClient(
@@ -181,10 +181,10 @@ class Chatbot:
         #     raise t.ActionRefuseError("System prompt is too long")
 
     def add_to_conversation(
-        self,
-        message,
-        role: str,
-        convo_id: str = "default",
+            self,
+            message,
+            role: str,
+            convo_id: str = "default",
     ) -> None:
         """
         Add a message to the conversation
@@ -201,8 +201,8 @@ class Chatbot:
             return
         while True:
             if (
-                self.get_token_count(convo_id) > self.truncate_limit
-                and len(self.conversation[convo_id]) > 1
+                    self.get_token_count(convo_id) > self.truncate_limit
+                    and len(self.conversation[convo_id]) > 1
             ):
                 # Don't remove the first message
                 self.conversation[convo_id].pop(1)
@@ -253,15 +253,15 @@ class Chatbot:
         return self.max_tokens - self.get_token_count(convo_id)
 
     def ask_stream(
-        self,
-        prompt,
-        role: str = "user",
-        convo_id: str = "default",
-        model: str = None,
-        pass_history: bool = True,
-        json_format: bool = False,
-        stream: bool = True,
-        **kwargs,
+            self,
+            prompt,
+            role: str = "user",
+            convo_id: str = "default",
+            model: str = None,
+            pass_history: bool = True,
+            json_format: bool = False,
+            stream: bool = True,
+            **kwargs,
     ):
         """
         Ask a question
@@ -275,10 +275,10 @@ class Chatbot:
         if os.environ.get("API_URL") and os.environ.get("MODEL_NAME"):
             # https://learn.microsoft.com/en-us/azure/cognitive-services/openai/chatgpt-quickstart?tabs=command-line&pivots=rest-api
             url = (
-                os.environ.get("API_URL")
-                + "openai/deployments/"
-                + os.environ.get("MODEL_NAME")
-                + "/chat/completions?api-version=2023-05-15"
+                    os.environ.get("API_URL")
+                    + "openai/deployments/"
+                    + os.environ.get("MODEL_NAME")
+                    + "/chat/completions?api-version=2023-05-15"
             )
             headers = {"Content-Type": "application/json", "api-key": self.api_key}
         else:
@@ -358,14 +358,14 @@ class Chatbot:
         self.add_to_conversation(full_response, response_role, convo_id=convo_id)
 
     async def ask_stream_async(
-        self,
-        prompt,
-        role: str = "user",
-        convo_id: str = "default",
-        model: str = None,
-        pass_history: bool = True,
-        json_format: bool = False,
-        **kwargs,
+            self,
+            prompt,
+            role: str = "user",
+            convo_id: str = "default",
+            model: str = None,
+            pass_history: bool = True,
+            json_format: bool = False,
+            **kwargs,
     ) -> AsyncGenerator[str, None]:
         """
         Ask a question
@@ -405,11 +405,11 @@ class Chatbot:
             headers.update(self.customize_header)
         # Get response
         async with self.aclient.stream(
-            "post",
-            self.api_url,
-            headers=headers,
-            json=payload,
-            timeout=kwargs.get("timeout", self.timeout),
+                "post",
+                self.api_url,
+                headers=headers,
+                json=payload,
+                timeout=kwargs.get("timeout", self.timeout),
         ) as response:
             if response.status_code != 200:
                 await response.aread()
@@ -445,14 +445,14 @@ class Chatbot:
         self.add_to_conversation(full_response, response_role, convo_id=convo_id)
 
     async def ask_async(
-        self,
-        prompt,
-        role: str = "user",
-        convo_id: str = "default",
-        model: str = None,
-        pass_history: bool = True,
-        json_format: bool = False,
-        **kwargs,
+            self,
+            prompt,
+            role: str = "user",
+            convo_id: str = "default",
+            model: str = None,
+            pass_history: bool = True,
+            json_format: bool = False,
+            **kwargs,
     ) -> str:
         """
         Non-streaming ask
@@ -468,14 +468,14 @@ class Chatbot:
         return full_response
 
     def ask(
-        self,
-        prompt,
-        role: str = "user",
-        convo_id: str = "default",
-        model: str = None,
-        pass_history: bool = True,
-        json_format: bool = False,
-        **kwargs,
+            self,
+            prompt,
+            role: str = "user",
+            convo_id: str = "default",
+            model: str = None,
+            pass_history: bool = True,
+            json_format: bool = False,
+            **kwargs,
     ) -> str:
         """
         Non-streaming ask
@@ -537,10 +537,10 @@ class Chatbot:
             keys = get_filtered_keys_from_object(self, *keys_)
 
             if (
-                "session" in keys
-                and loaded_config["session"]
-                or "proxy" in keys
-                and loaded_config["proxy"]
+                    "session" in keys
+                    and loaded_config["session"]
+                    or "proxy" in keys
+                    and loaded_config["proxy"]
             ):
                 self.proxy = loaded_config.get("session", loaded_config["proxy"])
                 self.session = httpx.Client(
