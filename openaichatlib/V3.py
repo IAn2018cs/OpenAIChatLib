@@ -320,7 +320,7 @@ class Chatbot:
             raise t.APIConnectionError(
                 f"{response.status_code} {response.reason} {response.text}",
             )
-        response_role: str or None = None
+        response_role: str = "assistant"
         full_response: str = ""
         if stream:
             for line in response.iter_lines():
@@ -413,7 +413,7 @@ class Chatbot:
                     f"{response.status_code} {response.reason_phrase} {response.text}",
                 )
 
-            response_role: str = ""
+            response_role: str = "assistant"
             full_response: str = ""
             async for line in response.aiter_lines():
                 line = line.strip()
