@@ -83,6 +83,7 @@ class Chatbot:
             model: str = None,
             pass_history: bool = True,
             json_format: bool = False,
+            stream_include_usage: bool = True,
             stream: bool = True,
             **kwargs,
     ):
@@ -116,7 +117,7 @@ class Chatbot:
             payload["response_format"] = {
                 "type": "json_object"
             }
-        if stream:
+        if stream and stream_include_usage:
             payload["stream_options"] = {
                 "include_usage": True
             }
@@ -158,8 +159,10 @@ class Chatbot:
                 resp: dict = json.loads(line)
                 usage = resp.get("usage", None)
                 if usage:
-                    prompt_tokens = usage.get("prompt_tokens", 0)
-                    completion_tokens = usage.get("completion_tokens", 0)
+                    if prompt_tokens == 0:
+                        prompt_tokens = usage.get("prompt_tokens", 0)
+                    if completion_tokens == 0:
+                        completion_tokens = usage.get("completion_tokens", 0)
                 choices = resp.get("choices")
                 if not choices:
                     continue
@@ -198,6 +201,7 @@ class Chatbot:
             model: str = None,
             pass_history: bool = True,
             json_format: bool = False,
+            stream_include_usage: bool = True,
             **kwargs,
     ) -> tuple:
         """
@@ -210,6 +214,7 @@ class Chatbot:
             model=model,
             pass_history=pass_history,
             json_format=json_format,
+            stream_include_usage=stream_include_usage,
             stream=False,
             **kwargs,
         )
