@@ -83,7 +83,7 @@ class Chatbot:
             model: str = None,
             pass_history: bool = True,
             json_format: bool = False,
-            stream_include_usage: bool = True,
+            stream_include_usage: bool = False,
             stream: bool = True,
             **kwargs,
     ):
@@ -201,7 +201,6 @@ class Chatbot:
             model: str = None,
             pass_history: bool = True,
             json_format: bool = False,
-            stream_include_usage: bool = True,
             **kwargs,
     ) -> tuple:
         """
@@ -214,7 +213,7 @@ class Chatbot:
             model=model,
             pass_history=pass_history,
             json_format=json_format,
-            stream_include_usage=stream_include_usage,
+            stream_include_usage=False,
             stream=False,
             **kwargs,
         )
