@@ -85,15 +85,20 @@ class Chatbot:
             json_format: bool = False,
             stream_include_usage: bool = False,
             stream: bool = True,
+            ignore_convo: bool = False,
             **kwargs,
     ):
         """
         Ask a question
         """
         # Make conversation if it doesn't exist
-        if convo_id not in self.conversation:
-            self.reset(convo_id=convo_id, system_prompt=self.system_prompt)
-        self.add_to_conversation(prompt, role, convo_id=convo_id)
+        if not ignore_convo:
+            if convo_id not in self.conversation:
+                self.reset(convo_id=convo_id, system_prompt=self.system_prompt)
+            self.add_to_conversation(prompt, role, convo_id=convo_id)
+            messages = self.conversation[convo_id] if pass_history else [prompt]
+        else:
+            messages = prompt
         # Get response
         url = (
             self.api_url
@@ -101,7 +106,7 @@ class Chatbot:
         headers = {"Authorization": f"Bearer {kwargs.get('api_key', self.api_key)}"}
         payload = {
             "model": os.environ.get("MODEL_NAME") or model or self.engine,
-            "messages": self.conversation[convo_id] if pass_history else [prompt],
+            "messages": messages,
             "stream": stream,
             # kwargs
             "temperature": kwargs.get("temperature", self.temperature),
@@ -191,7 +196,8 @@ class Chatbot:
             full_response = content
             yield content
             yield prompt_tokens, completion_tokens
-        self.add_to_conversation(full_response, response_role, convo_id=convo_id)
+        if not ignore_convo:
+            self.add_to_conversation(full_response, response_role, convo_id=convo_id)
 
     def ask(
             self,
@@ -201,6 +207,7 @@ class Chatbot:
             model: str = None,
             pass_history: bool = True,
             json_format: bool = False,
+            ignore_convo: bool = False,
             **kwargs,
     ) -> tuple:
         """
@@ -215,6 +222,7 @@ class Chatbot:
             json_format=json_format,
             stream_include_usage=False,
             stream=False,
+            ignore_convo=ignore_convo,
             **kwargs,
         )
         full_response = ""
