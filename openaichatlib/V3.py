@@ -126,6 +126,9 @@ class Chatbot:
             payload["stream_options"] = {
                 "include_usage": True
             }
+        stop = kwargs.get("stop", None)
+        if stop:
+            payload["stop"] = stop
 
         presence_penalty = kwargs.get("presence_penalty", None)
         if presence_penalty:
