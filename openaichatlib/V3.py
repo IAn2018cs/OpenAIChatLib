@@ -166,11 +166,15 @@ class Chatbot:
             for line in response.iter_lines():
                 if not line:
                     continue
-                # Remove "data: "
-                line = line.decode("utf-8")[6:]
-                if line == "[DONE]":
-                    break
-                resp: dict = json.loads(line)
+                line = line.decode("utf-8")
+                try:
+                    resp: dict = json.loads(line)
+                except:
+                    # Remove "data: "
+                    line = line[6:]
+                    if line == "[DONE]":
+                        break
+                    resp: dict = json.loads(line)
                 usage = resp.get("usage", None)
                 if usage:
                     if prompt_tokens == 0:
