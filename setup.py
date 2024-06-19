@@ -17,7 +17,7 @@ install_requires = [
 
 setup(
     name="openaichatlib",
-    version="1.1.3",
+    version='{{VERSION_PLACEHOLDER}}',
     description="OpenAI Chat API",
     long_description=long_description,
     long_description_content_type="text/markdown",

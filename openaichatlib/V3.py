@@ -86,6 +86,7 @@ class Chatbot:
             stream_include_usage: bool = False,
             stream: bool = True,
             ignore_convo: bool = False,
+            other_data: dict = None,
             **kwargs,
     ):
         """
@@ -139,6 +140,11 @@ class Chatbot:
         user = kwargs.get("user", None)
         if user:
             payload["user"] = user
+
+        if other_data:
+            for key, value in other_data.items():
+                payload[key] = value
+
         if self.customize_header:
             headers.update(self.customize_header)
         response = self.session.post(
@@ -211,6 +217,7 @@ class Chatbot:
             pass_history: bool = True,
             json_format: bool = False,
             ignore_convo: bool = False,
+            other_data: dict = None,
             **kwargs,
     ) -> tuple:
         """
@@ -226,6 +233,7 @@ class Chatbot:
             stream_include_usage=False,
             stream=False,
             ignore_convo=ignore_convo,
+            other_data=other_data,
             **kwargs,
         )
         full_response = ""
